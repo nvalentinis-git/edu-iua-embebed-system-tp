@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ "$1" == "-h" ]; then
+  echo "Use like this: ./start-http-server.sh [SERVER_HOST_NUMBER] [ACTUATOR_CLIENT_HOST_NUMBER] [ACTUATOR_CLIENT_PORT_NUMBER]"
+  exit 0
+fi
+
 SERVER_HOST_NUMBER=8000
 if [[ -n $1 ]]; then
 	SERVER_HOST_NUMBER=$1    
