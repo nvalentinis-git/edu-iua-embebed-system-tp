@@ -25,10 +25,8 @@ public class HtmlCreator {
 		htmlBuilder.append("<head><title>IUA - Sistemas Embebidos - Sistemas Distribuidos - TP Final</title></head>");
 		htmlBuilder.append("<body>");
 		if (!HttpServerConstant.EMPTY_STRING.equals(realoadTime)) {
-			htmlBuilder.append("<script type=\"text/javascript\">");
-			htmlBuilder.append("function reFresh(){");
-			htmlBuilder.append("location.reload(true)}");
-			htmlBuilder.append("window.setInterval(\"reFresh()\","+ Integer.parseInt(realoadTime)*1000  +");");
+			htmlBuilder.append("<script type=\"text/javascript\">");						
+			htmlBuilder.append("window.setInterval(function() {location.reload(true)},"+ Integer.parseInt(realoadTime)*1000  +");");
 			htmlBuilder.append("</script>");
 		}
 		htmlBuilder.append("<p><h1  style=\"color: blue;\"> El actuador se consulto con formato: " + format + " </h1></p>");
