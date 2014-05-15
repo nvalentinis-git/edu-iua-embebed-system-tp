@@ -19,7 +19,7 @@ public class HttpServer {
 			
 			while(true) {				
 				Socket httpClientSocket = httpServer.accept();
-				System.out.println("New Connection established");
+				System.out.println("New HTTP request established");
 				
 				new Thread(new HttpServerSession(httpClientSocket)).start();
 			}

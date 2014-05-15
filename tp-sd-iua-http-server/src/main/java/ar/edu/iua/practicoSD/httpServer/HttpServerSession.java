@@ -89,10 +89,10 @@ public class HttpServerSession implements Runnable {
 			outputStream.flush();
 			
 			// log the activity		
-			System.out.println(parser.getMethod());
-			System.out.println(parser.getRequestURL());
-			System.out.println("Actuator request: " + request.getRequest());
-			System.out.println("Actuator response: " + request.getResponse());
+			System.out.println("Method:                     " + parser.getMethod());
+			System.out.println("URL:                        " + parser.getRequestURL());
+			System.out.println("Actuator request sent:      " + request.getRequest());
+			System.out.println("Actuator response received: " + request.getResponse());
 			System.out.println("--------------------------------------------\n");
 			
 			if(Boolean.parseBoolean(System.getProperty("debugMode", "false"))) {

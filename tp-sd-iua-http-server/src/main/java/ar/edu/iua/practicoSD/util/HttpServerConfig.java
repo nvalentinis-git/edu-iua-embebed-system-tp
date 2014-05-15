@@ -24,4 +24,24 @@ public class HttpServerConfig {
 	public static String getActuatorClientHostNumber() {
 		return System.getProperty("actuatorClientHostNumber", ACTUATOR_CLIENT_HOST_NUMBER);
 	}
+	
+	public static String getActuatorRequestGetLogicalJson() {
+		return System.getProperty("actuatorClientLogicalJson", 
+				HttpServerConstant.ACTUATOR_REQUEST_GET_LOGICAL_VALUE_JSON);
+	}
+	
+	public static String getActuatorRequestGetLogicalXml() {
+		return System.getProperty("actuatorClientLogicalXml", 
+				HttpServerConstant.ACTUATOR_REQUEST_GET_LOGICAL_VALUE_XML);
+	}
+	
+	public static String getActuatorRequestGetAnalogicalJson() {
+		return System.getProperty("actuatorClientAnalogicalJson", 
+				HttpServerConstant.ACTUATOR_REQUEST_GET_ANALOGICAL_VALUE_JSON);
+	}
+	
+	public static String getActuatorRequestGetAnalogicalXml() {
+		return System.getProperty("actuatorClientAnalogicalXml", 
+				HttpServerConstant.ACTUATOR_REQUEST_GET_ANALOGICAL_VALUE_XML);
+	}	
 }

@@ -3,6 +3,7 @@ package ar.edu.iua.practicoSD.httpServer;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import ar.edu.iua.practicoSD.util.HttpParser;
+import ar.edu.iua.practicoSD.util.HttpServerConfig;
 import ar.edu.iua.practicoSD.util.HttpServerConstant;
 
 public class HttpServerLogic {
@@ -61,15 +62,15 @@ public class HttpServerLogic {
 		if (HttpServerLogic.isLogicValue(parser.getRequestURL())) {
 			request.setRequest("Request Error");
 			if(HttpServerLogic.isJsonRequest(parser)) {
-				request.setRequest(HttpServerConstant.ACTUATOR_REQUEST_GET_LOGICAL_VALUE_JSON + 
+				request.setRequest(HttpServerConfig.getActuatorRequestGetLogicalJson() + 
 						HttpServerConstant.ACTUATOR_REQUEST_END_OF_MESSAGE);
 			
 			} else if(HttpServerLogic.isXmlRequest(parser)) {
-				request.setRequest(HttpServerConstant.ACTUATOR_REQUEST_GET_LOGICAL_VALUE_XML + 
+				request.setRequest(HttpServerConfig.getActuatorRequestGetLogicalXml() + 
 						HttpServerConstant.ACTUATOR_REQUEST_END_OF_MESSAGE); 
 			
 			} else {			
-				request.setRequest(HttpServerConstant.ACTUATOR_REQUEST_GET_LOGICAL_VALUE_XML +
+				request.setRequest(HttpServerConfig.getActuatorRequestGetLogicalXml() +
 						 HttpServerConstant.ACTUATOR_REQUEST_END_OF_MESSAGE);
 			} 
 			request.setSensorType("Logic");
@@ -77,15 +78,15 @@ public class HttpServerLogic {
 		} else if(HttpServerLogic.isAnalogicValue(parser.getRequestURL())) {
 			request.setRequest("Request Error");
 			if(HttpServerLogic.isJsonRequest(parser)) {
-				request.setRequest(HttpServerConstant.ACTUATOR_REQUEST_GET_ANALOGICAL_VALUE_JSON + 
+				request.setRequest(HttpServerConfig.getActuatorRequestGetAnalogicalJson() + 
 						HttpServerConstant.ACTUATOR_REQUEST_END_OF_MESSAGE);
 				
 			} else if (HttpServerLogic.isXmlRequest(parser)) {
-				request.setRequest(HttpServerConstant.ACTUATOR_REQUEST_GET_ANALOGICAL_VALUE_XML +
+				request.setRequest(HttpServerConfig.getActuatorRequestGetAnalogicalXml() +
 						HttpServerConstant.ACTUATOR_REQUEST_END_OF_MESSAGE);
 				
 			} else {
-				request.setRequest(HttpServerConstant.ACTUATOR_REQUEST_GET_ANALOGICAL_VALUE_XML +
+				request.setRequest(HttpServerConfig.getActuatorRequestGetAnalogicalXml() +
 						HttpServerConstant.ACTUATOR_REQUEST_END_OF_MESSAGE);
 			} 
 			request.setSensorType("Analogic");

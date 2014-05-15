@@ -35,19 +35,19 @@ public class ActuatorServerMock {
 	private static String getResponse(String request) {
 		String response = "error";
 		
-		if (HttpServerConstant.ACTUATOR_REQUEST_GET_ANALOGICAL_VALUE_JSON.equalsIgnoreCase(request) ) {
+		if (HttpServerConfig.getActuatorRequestGetAnalogicalJson().equalsIgnoreCase(request) ) {
 						
 			response = "{ \"type\":\"analogic\", \"meta\":\"sensor2\", \"value\":0.67 }\n";
 			
-		} else if (HttpServerConstant.ACTUATOR_REQUEST_GET_ANALOGICAL_VALUE_XML.equalsIgnoreCase(request) ) {
+		} else if (HttpServerConfig.getActuatorRequestGetAnalogicalXml().equalsIgnoreCase(request) ) {
 						
 			response = "<response type=\"analogic\" meta=\"sensor2\">0.67</response>\n";
 
-		} else if (HttpServerConstant.ACTUATOR_REQUEST_GET_LOGICAL_VALUE_JSON.equalsIgnoreCase(request) ) {
+		} else if (HttpServerConfig.getActuatorRequestGetLogicalJson().equalsIgnoreCase(request) ) {
 			
 			response = "{ \"type\":\"logic\", \"meta\":\"sensor1\", \"value\":1 }\n";
 
-		} else if (HttpServerConstant.ACTUATOR_REQUEST_GET_LOGICAL_VALUE_XML.equalsIgnoreCase(request) ) {
+		} else if (HttpServerConfig.getActuatorRequestGetLogicalXml().equalsIgnoreCase(request) ) {
 			
 			response = "<response type=\"logic\" meta=\"sensor1\">1</response>\n";
 		}

@@ -32,8 +32,8 @@ public class HtmlCreator {
 			htmlBuilder.append("</script>");
 		}
 		htmlBuilder.append("<p><h1  style=\"color: blue;\"> El actuador se consulto con formato: " + format + " </h1></p>");
-		htmlBuilder.append("<p><h2  style=\"color: black;\"> La respuesta del actuador fue: " + StringEscapeUtils.escapeHtml4(response) + " </h2></p>");
-		htmlBuilder.append("<p><h2  style=\"color: black;\"> El valor del sensor tipo \"" + sensorType + "\", es: \"" + value + "\" </h2></p>");
+		htmlBuilder.append("<p><h3  style=\"color: black;\"> La respuesta del actuador fue: " + StringEscapeUtils.escapeHtml4(response) + " </h3></p>");
+		htmlBuilder.append("<p><h3  style=\"color: black;\"> El valor del sensor tipo \"" + sensorType + "\", es: \"" + value + "\" </h3></p>");
 		if (!HttpServerConstant.EMPTY_STRING.equals(realoadTime)) {
 			htmlBuilder.append("<p><h4 style=\"color: grey;\"> La pagina se cargara automaticamente cada: "+ realoadTime +" segundos </h4</p>");
 			String dateFormated = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z").format(new Date());
