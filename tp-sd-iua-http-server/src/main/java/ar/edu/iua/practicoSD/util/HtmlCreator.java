@@ -20,25 +20,59 @@ public class HtmlCreator {
 	
 	public static String createHtmlResponse(String format, String response, 
 			String sensorType, String value, String realoadTime) {
+		
 		StringBuilder htmlBuilder = new StringBuilder(createHttpResponseHeader());
+		
 		htmlBuilder.append("<html>");
-		htmlBuilder.append("<head><title>IUA - Sistemas Embebidos - Sistemas Distribuidos - TP Final</title></head>");
+		htmlBuilder.append("<head><title>TP Final SD.</title></head>");
 		htmlBuilder.append("<body>");
+		
 		if (!HttpServerConstant.EMPTY_STRING.equals(realoadTime)) {
 			htmlBuilder.append("<script type=\"text/javascript\">");						
 			htmlBuilder.append("window.setInterval(function() {location.reload(true)},"+ Integer.parseInt(realoadTime)*1000  +");");
 			htmlBuilder.append("</script>");
 		}
-		htmlBuilder.append("<p><h1  style=\"color: blue;\"> El actuador se consulto con formato: " + format + " </h1></p>");
-		htmlBuilder.append("<p><h3  style=\"color: black;\"> La respuesta del actuador fue: " + StringEscapeUtils.escapeHtml4(response) + " </h3></p>");
-		htmlBuilder.append("<p><h3  style=\"color: black;\"> El valor del sensor tipo \"" + sensorType + "\", es: \"" + value + "\" </h3></p>");
+		
+		htmlBuilder.append("<p><h1  style=\"color: blue; text-align: center;\"> Sistema de Medicion Distribuido</h1>");
+		htmlBuilder.append("<p><h1  style=\"color: blue;\"> Estado del Actuador </h1></p>");
+		
+		htmlBuilder.append("<table style=\"width:400px; font-size: 20;\"> "+
+			"<tr>"+
+			"  <td style=\"font-weight:bold;\">Tipo de Sensor</td> " +
+			"  <td>" + sensorType + "</td>" +		
+			"</tr>" +
+			"<tr>" +
+			"  <td style=\"font-weight:bold;\">Valor de Sensor</td>" +
+			"  <td>" + value + "</td>" +		
+			"</tr>" +
+			"<tr>" +
+			"  <td style=\"font-weight:bold;\">Tipo de formato</td>" +
+			"  <td>" + format + "</td>" +		
+			"</tr>" + 
+			"<tr>" + 
+			"  <td style=\"font-weight:bold;\">Respuesta del Actuador</td>" +
+			"  <td>" + StringEscapeUtils.escapeHtml4(response) + "</td>" +		
+			"</tr>" +
+			"</table>");
+		
 		if (!HttpServerConstant.EMPTY_STRING.equals(realoadTime)) {
-			htmlBuilder.append("<p><h4 style=\"color: grey;\"> La pagina se cargara automaticamente cada: "+ realoadTime +" segundos </h4</p>");
+			
 			String dateFormated = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z").format(new Date());
-			htmlBuilder.append("<p><h4 style=\"color: grey;\"> Ultima Recarga fue: " + dateFormated + " </h4</p>");
+			htmlBuilder.append("<table style=\"width:400px; font-size: 20;\"> " + 
+				"<tr> " +
+				"  <td style=\"font-weight:bold; \">Ultima Actualizacion: </td> " +
+				"  <td>" + dateFormated + "</td> " +		 
+				"</tr>" +
+				"<tr>" +
+				"  <td style=\"font-weight:bold;\">Recarga Automatica cada: </td>" +
+				"  <td>" + realoadTime + " seg. </td>" +		
+				"</tr>" +		
+				"</table>");			
 		}
+		
 		htmlBuilder.append("</body>");
 		htmlBuilder.append("</html>");
+		
 		return htmlBuilder.toString();
 	}
 		
