@@ -55,21 +55,25 @@ public class HtmlCreator {
 			"</tr>" +
 			"</table>");
 		
+		htmlBuilder.append("<p><h1  style=\"color: blue;\"> Estado del Actuador </h1></p>");
+		
+		String dateFormated = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z").format(new Date());
+		htmlBuilder.append("<table style=\"width:80%; font-size: 20;\"> ");
+		htmlBuilder.append("<tr>" +
+		"  <td style=\"font-weight:bold;\">Recarga Automatica cada: </td>" +
+		"  <td>" + realoadTime + " seg. </td>" +		
+		"</tr>");
+		
 		if (!HttpServerConstant.EMPTY_STRING.equals(realoadTime)) {
 			
-			String dateFormated = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z").format(new Date());
-			htmlBuilder.append("<table style=\"width:80%; font-size: 20;\"> " + 
-				"<tr> " +
+			htmlBuilder.append("<tr> " +
 				"  <td style=\"font-weight:bold; \">Ultima Actualizacion: </td> " +
 				"  <td>" + dateFormated + "</td> " +		 
-				"</tr>" +
-				"<tr>" +
-				"  <td style=\"font-weight:bold;\">Recarga Automatica cada: </td>" +
-				"  <td>" + realoadTime + " seg. </td>" +		
-				"</tr>" +		
-				"</table>");			
+				"</tr>");							
 		}
 		
+		htmlBuilder.append("</table>");
+	
 		htmlBuilder.append("</body>");
 		htmlBuilder.append("</html>");
 		
