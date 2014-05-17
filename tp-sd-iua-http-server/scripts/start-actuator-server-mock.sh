@@ -33,5 +33,4 @@ echo --------------------------------------------------------------
 echo Starting Java App...
 echo .................
 
-#chmod a+x *.sh
-java -cp ../target/tp-sd-iua-http-server-1.0-SNAPSHOT-jar-with-dependencies.jar $NETWORK_CONFIG $PROTOCOL_CONFIG ar.edu.iua.practicoSD.actuatorServer.ActuatorServerMock
+java -cp ~/work/edu-iua-embebed-system-tp/tp-sd-iua-http-server/target/tp-sd-iua-http-server-1.0-SNAPSHOT-jar-with-dependencies.jar $NETWORK_CONFIG $PROTOCOL_CONFIG ar.edu.iua.practicoSD.actuatorServer.ActuatorServerMock

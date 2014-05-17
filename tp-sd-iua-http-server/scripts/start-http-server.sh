@@ -7,17 +7,17 @@ fi
 
 SERVER_HOST_NUMBER=8000
 if [[ -n $1 ]]; then
-	SERVER_HOST_NUMBER=$1    
+	SERVER_HOST_NUMBER=$1
 fi
 
 ACTUATOR_CLIENT_HOST_NUMBER=192.168.1.10
 if [[ -n $2 ]]; then
-	ACTUATOR_CLIENT_HOST_NUMBER=$2    
+	ACTUATOR_CLIENT_HOST_NUMBER=$2
 fi
 
 ACTUATOR_CLIENT_PORT_NUMBER=80
 if [[ -n $3 ]]; then
-	ACTUATOR_CLIENT_PORT_NUMBER=$3    
+	ACTUATOR_CLIENT_PORT_NUMBER=$3
 fi
 
 NETWORK_CONFIG=" -DhttpServerPortNumber=$SERVER_HOST_NUMBER -DactuatorClientHostNumber=$ACTUATOR_CLIENT_HOST_NUMBER -DactuatorClientPortNumber=$ACTUATOR_CLIENT_PORT_NUMBER "
@@ -46,8 +46,7 @@ echo --------------------------------------------------------------
 echo Starting Java App...
 echo .................
 
-#chmod a+x *.sh
-java -cp ../target/tp-sd-iua-http-server-1.0-SNAPSHOT-jar-with-dependencies.jar $NETWORK_CONFIG $PROTOCOL_CONFIG ar.edu.iua.practicoSD.httpServer.HttpServer
+java -cp /home/pi/http-server/lib/tp-sd-iua-http-server-1.0-SNAPSHOT-jar-with-dependencies.jar $NETWORK_CONFIG $PROTOCOL_CONFIG ar.edu.iua.practicoSD.httpServer.HttpServer
 
 
 
