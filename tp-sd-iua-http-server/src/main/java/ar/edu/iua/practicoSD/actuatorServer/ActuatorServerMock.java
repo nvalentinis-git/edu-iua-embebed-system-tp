@@ -8,7 +8,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import ar.edu.iua.practicoSD.util.HttpServerConfig;
-import ar.edu.iua.practicoSD.util.HttpServerConstant;
 
 public class ActuatorServerMock {
 	
