@@ -36,7 +36,7 @@ public class HtmlCreator {
 		htmlBuilder.append("<p><h1  style=\"color: blue; text-align: center;\"> Sistema de Medicion Distribuido</h1>");
 		htmlBuilder.append("<p><h1  style=\"color: blue;\"> Estado del Actuador </h1></p>");
 		
-		htmlBuilder.append("<table style=\"width:400px; font-size: 20;\"> "+
+		htmlBuilder.append("<table style=\"width:80%; font-size: 20;\"> "+
 			"<tr>"+
 			"  <td style=\"font-weight:bold;\">Tipo de Sensor</td> " +
 			"  <td>" + sensorType + "</td>" +		
@@ -46,7 +46,7 @@ public class HtmlCreator {
 			"  <td>" + value + "</td>" +		
 			"</tr>" +
 			"<tr>" +
-			"  <td style=\"font-weight:bold;\">Tipo de formato</td>" +
+			"  <td style=\"font-weight:bold;\">Tipo de Formato</td>" +
 			"  <td>" + format + "</td>" +		
 			"</tr>" + 
 			"<tr>" + 
@@ -58,7 +58,7 @@ public class HtmlCreator {
 		if (!HttpServerConstant.EMPTY_STRING.equals(realoadTime)) {
 			
 			String dateFormated = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z").format(new Date());
-			htmlBuilder.append("<table style=\"width:400px; font-size: 20;\"> " + 
+			htmlBuilder.append("<table style=\"width:80%; font-size: 20;\"> " + 
 				"<tr> " +
 				"  <td style=\"font-weight:bold; \">Ultima Actualizacion: </td> " +
 				"  <td>" + dateFormated + "</td> " +		 
