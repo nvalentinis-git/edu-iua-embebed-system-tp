@@ -38,19 +38,19 @@ public class HtmlCreator {
 		
 		htmlBuilder.append("<table style=\"width:80%; font-size: 20;\"> "+
 			"<tr>"+
-			"  <td style=\"font-weight:bold;\">Tipo de Sensor</td> " +
+			"  <td style=\"width:320px; font-weight:bold;\">Tipo de Sensor</td> " +
 			"  <td>" + sensorType + "</td>" +		
 			"</tr>" +
 			"<tr>" +
-			"  <td style=\"font-weight:bold;\">Valor de Sensor</td>" +
+			"  <td style=\"width:320px; font-weight:bold;\">Valor de Sensor</td>" +
 			"  <td>" + value + "</td>" +		
 			"</tr>" +
 			"<tr>" +
-			"  <td style=\"font-weight:bold;\">Tipo de Formato</td>" +
+			"  <td style=\"width:320px; font-weight:bold;\">Tipo de Formato</td>" +
 			"  <td>" + format + "</td>" +		
 			"</tr>" + 
 			"<tr>" + 
-			"  <td style=\"font-weight:bold;\">Respuesta del Actuador</td>" +
+			"  <td style=\"width:320px; font-weight:bold;\">Respuesta del Actuador</td>" +
 			"  <td>" + StringEscapeUtils.escapeHtml4(response) + "</td>" +		
 			"</tr>" +
 			"</table>");
@@ -59,17 +59,17 @@ public class HtmlCreator {
 		
 		String dateFormated = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z").format(new Date());
 		htmlBuilder.append("<table style=\"width:80%; font-size: 20;\"> ");
-		htmlBuilder.append("<tr>" +
-		"  <td style=\"font-weight:bold;\">Recarga Automatica cada: </td>" +
-		"  <td>" + realoadTime + " seg. </td>" +		
-		"</tr>");
+		
+		htmlBuilder.append("<tr> " +
+				"  <td style=\"width:320px; font-weight:bold; \">Ultima Actualizacion: </td> " +
+				"  <td>" + dateFormated + "</td> " +		 
+				"</tr>");	
 		
 		if (!HttpServerConstant.EMPTY_STRING.equals(realoadTime)) {
-			
-			htmlBuilder.append("<tr> " +
-				"  <td style=\"font-weight:bold; \">Ultima Actualizacion: </td> " +
-				"  <td>" + dateFormated + "</td> " +		 
-				"</tr>");							
+			htmlBuilder.append("<tr>" +
+					"  <td style=\"width:320px; font-weight:bold;\">Recarga Automatica cada: </td>" +
+					"  <td>" + realoadTime + " seg. </td>" +		
+					"</tr>");
 		}
 		
 		htmlBuilder.append("</table>");
