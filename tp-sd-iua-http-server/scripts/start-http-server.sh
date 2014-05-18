@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$1" == "-h" ]; then
-  echo "Use like this: ./start-http-server.sh [SERVER_HOST_NUMBER] [ACTUATOR_CLIENT_HOST_NUMBER] [ACTUATOR_CLIENT_PORT_NUMBER]"
+  echo "Use like this: ./start-http-server.sh [SERVER_HOST_NUMBER] [SERVER_TCP_HOST_NUMBER] [SERVER_TCP_PORT_NUMBER]"
   exit 0
 fi
 
@@ -10,37 +10,37 @@ if [[ -n $1 ]]; then
 	SERVER_HOST_NUMBER=$1
 fi
 
-ACTUATOR_CLIENT_HOST_NUMBER=192.168.1.10
+SERVER_TCP_HOST_NUMBER=192.168.1.10
 if [[ -n $2 ]]; then
-	ACTUATOR_CLIENT_HOST_NUMBER=$2
+	SERVER_TCP_HOST_NUMBER=$2
 fi
 
-ACTUATOR_CLIENT_PORT_NUMBER=80
+SERVER_TCP_PORT_NUMBER=80
 if [[ -n $3 ]]; then
-	ACTUATOR_CLIENT_PORT_NUMBER=$3
+	SERVER_TCP_PORT_NUMBER=$3
 fi
 
-NETWORK_CONFIG=" -DhttpServerPortNumber=$SERVER_HOST_NUMBER -DactuatorClientHostNumber=$ACTUATOR_CLIENT_HOST_NUMBER -DactuatorClientPortNumber=$ACTUATOR_CLIENT_PORT_NUMBER "
+NETWORK_CONFIG=" -DhttpServerPortNumber=$SERVER_HOST_NUMBER -DsensorTCPHostNumber=$SERVER_TCP_HOST_NUMBER -DsensorTCPPortNumber=$SERVER_TCP_PORT_NUMBER "
 
 # Configuration Actuator Protocol
-actuatorClientLogicalJson=getLogicValueJSON
-actuatorClientLogicalXml=getLogicValueXML
-actuatorClientAnalogicalJson=getAnalogicValueJSON
-actuatorClientAnalogicalXml=getAnalogicValueXML
+sensorTCPCommandLogicalJson=getLogicValueJSON
+sensorTCPCommandLogicalXml=getLogicValueXML
+sensorTCPCommandAnalogicalJson=getAnalogicValueJSON
+sensorTCPCommandAnalogicalXml=getAnalogicValueXML
 
-PROTOCOL_CONFIG=" -DactuatorClientLogicalJson=$actuatorClientLogicalJson -DactuatorClientLogicalXml=$actuatorClientLogicalXml -DactuatorClientAnalogicalJson=$actuatorClientAnalogicalJson -DactuatorClientAnalogicalXml=$actuatorClientAnalogicalXml "
+PROTOCOL_CONFIG=" -DsensorTCPCommandLogicalJson=$sensorTCPCommandLogicalJson -DsensorTCPCommandLogicalXml=$sensorTCPCommandLogicalXml -DsensorTCPCommandAnalogicalJson=$sensorTCPCommandAnalogicalJson -DsensorTCPCommandAnalogicalXml=$sensorTCPCommandAnalogicalXml "
 
 
 echo Http Server Port Number used $SERVER_HOST_NUMBER
-echo Actuator Client Host Number used $ACTUATOR_CLIENT_HOST_NUMBER
-echo Actuator Client Port Number used $ACTUATOR_CLIENT_PORT_NUMBER
+echo Sensor Server TCP Host Number used $SERVER_TCP_HOST_NUMBER
+echo Sensor Server TCP Port Number used $SERVER_TCP_PORT_NUMBER
 echo --------------------------------------------------------------
 
 echo Actuator Protocol Configuration: 
-echo 	$actuatorClientLogicalJson
-echo 	$actuatorClientLogicalXml
-echo 	$actuatorClientAnalogicalJson
-echo 	$actuatorClientAnalogicalXml
+echo 	$sensorTCPCommandLogicalJson
+echo 	$sensorTCPCommandLogicalXml
+echo 	$sensorTCPCommandAnalogicalJson
+echo 	$sensorTCPCommandAnalogicalXml
 echo --------------------------------------------------------------
 
 echo Starting Java App...

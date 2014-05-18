@@ -10,7 +10,7 @@ public class HtmlCreator {
 		StringBuilder htmlBuilder = new StringBuilder();
 		htmlBuilder.append("HTTP/1.1 200 OK\n");
 		String dateFormated = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z").format(new Date());
-		htmlBuilder.append("Date: " + dateFormated + "\n"); // Wed, 31 Dec 2003 23:59:59 GMT TODO extract the date
+		htmlBuilder.append("Date: " + dateFormated + "\n");
 		htmlBuilder.append("Content-Type: text/html\n");
 		htmlBuilder.append("Content-Length: 9999" + "\n");
 		htmlBuilder.append("\n");
@@ -34,7 +34,7 @@ public class HtmlCreator {
 		}
 		
 		htmlBuilder.append("<p><h1  style=\"color: blue; text-align: center;\"> Sistema de Medicion Distribuido</h1>");
-		htmlBuilder.append("<p><h1  style=\"color: blue;\"> Estado del Actuador </h1></p>");
+		htmlBuilder.append("<p><h1  style=\"color: blue;\"> Estado del Modulo de Sensores </h1></p>");
 		
 		htmlBuilder.append("<table style=\"width:80%; font-size: 20;\"> "+
 			"<tr>"+
@@ -83,9 +83,21 @@ public class HtmlCreator {
 	public static String createErrorHtmlResponse(String msg) {
 		StringBuilder htmlBuilder = new StringBuilder(createHttpResponseHeader());
 		htmlBuilder.append("<html>");
-		htmlBuilder.append("<head><title>IUA - Sistemas Embebidos - Sistemas Distribuidos - TP Final</title></head>");
+		htmlBuilder.append("<head><title>TP Final SD.</title></head>");
 		htmlBuilder.append("<body>");
 		htmlBuilder.append("<p><h2  style=\"color: red;\"> " + msg + " </h2></p>");
+		htmlBuilder.append("</body>");
+		htmlBuilder.append("</html>");
+		return htmlBuilder.toString();
+	}
+	
+	public static String createSensorConfigurationResponse(String ip, String puerto) {
+		StringBuilder htmlBuilder = new StringBuilder(createHttpResponseHeader());
+		htmlBuilder.append("<html>");
+		htmlBuilder.append("<head><title>TP Final SD.</title></head>");
+		htmlBuilder.append("<body>");
+		htmlBuilder.append("<p><h2  style=\"color: black;\"> Nuevo Host   del TCP Server:  "  + ip + " </h2></p>");
+		htmlBuilder.append("<p><h2  style=\"color: black;\"> Nuevo Puerto del TCP Server:  " + puerto + " </h2></p>");
 		htmlBuilder.append("</body>");
 		htmlBuilder.append("</html>");
 		return htmlBuilder.toString();

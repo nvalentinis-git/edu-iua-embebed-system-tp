@@ -1,7 +1,10 @@
 package ar.edu.iua.practicoSD.httpServer;
 
 import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.commons.validator.routines.InetAddressValidator;
 
+
+import ar.edu.iua.practicoSD.util.HtmlCreator;
 import ar.edu.iua.practicoSD.util.HttpParser;
 import ar.edu.iua.practicoSD.util.HttpServerConfig;
 import ar.edu.iua.practicoSD.util.HttpServerConstant;
@@ -9,7 +12,9 @@ import ar.edu.iua.practicoSD.util.HttpServerConstant;
 public class HttpServerLogic {
 
 	public static boolean isValidURL(String url) {		
-		return isAnalogicValue(url) || isLogicValue(url);		
+		return isAnalogicValue(url) || 
+				isLogicValue(url) || 
+				isSensorTCPConfig(url);		
 	}
 	
 	public static boolean isAnalogicValue(String url) {
@@ -18,6 +23,10 @@ public class HttpServerLogic {
 	
 	public static boolean isLogicValue(String url) {
 		return url.contains("getLogicValue");
+	}
+	
+	public static boolean isSensorTCPConfig(String url) {
+		return url.contains("sensorConfig");
 	}
 	
 	public static boolean isXmlRequest(HttpParser parser) {
@@ -58,36 +67,36 @@ public class HttpServerLogic {
 		return true;
 	}
 	
-	public static void createActuatorRequest(HttpParser parser, ActuatorClientRequest request) {
+	public static void createSensorTCPRequest(HttpParser parser, SensorTCPClientRequest request) {
 		if (HttpServerLogic.isLogicValue(parser.getRequestURL())) {
 			request.setRequest("Request Error");
 			if(HttpServerLogic.isJsonRequest(parser)) {
-				request.setRequest(HttpServerConfig.getActuatorRequestGetLogicalJson() + 
-						HttpServerConstant.ACTUATOR_REQUEST_END_OF_MESSAGE);
+				request.setRequest(HttpServerConfig.getSensorTCPCommandGetLogicalJson() + 
+						HttpServerConstant.SENSOR_TCP_REQUEST_END_OF_MESSAGE);
 			
 			} else if(HttpServerLogic.isXmlRequest(parser)) {
-				request.setRequest(HttpServerConfig.getActuatorRequestGetLogicalXml() + 
-						HttpServerConstant.ACTUATOR_REQUEST_END_OF_MESSAGE); 
+				request.setRequest(HttpServerConfig.getSensorTCPCommandGetLogicalXml() + 
+						HttpServerConstant.SENSOR_TCP_REQUEST_END_OF_MESSAGE); 
 			
 			} else {			
-				request.setRequest(HttpServerConfig.getActuatorRequestGetLogicalXml() +
-						 HttpServerConstant.ACTUATOR_REQUEST_END_OF_MESSAGE);
+				request.setRequest(HttpServerConfig.getSensorTCPCommandGetLogicalJson() +
+						 HttpServerConstant.SENSOR_TCP_REQUEST_END_OF_MESSAGE);
 			} 
 			request.setSensorType("Logic");
 
 		} else if(HttpServerLogic.isAnalogicValue(parser.getRequestURL())) {
 			request.setRequest("Request Error");
 			if(HttpServerLogic.isJsonRequest(parser)) {
-				request.setRequest(HttpServerConfig.getActuatorRequestGetAnalogicalJson() + 
-						HttpServerConstant.ACTUATOR_REQUEST_END_OF_MESSAGE);
+				request.setRequest(HttpServerConfig.getSensorTCPCommandGetAnalogicalJson() + 
+						HttpServerConstant.SENSOR_TCP_REQUEST_END_OF_MESSAGE);
 				
 			} else if (HttpServerLogic.isXmlRequest(parser)) {
-				request.setRequest(HttpServerConfig.getActuatorRequestGetAnalogicalXml() +
-						HttpServerConstant.ACTUATOR_REQUEST_END_OF_MESSAGE);
+				request.setRequest(HttpServerConfig.getSensorTCPCommandGetAnalogicalXml() +
+						HttpServerConstant.SENSOR_TCP_REQUEST_END_OF_MESSAGE);
 				
 			} else {
-				request.setRequest(HttpServerConfig.getActuatorRequestGetAnalogicalXml() +
-						HttpServerConstant.ACTUATOR_REQUEST_END_OF_MESSAGE);
+				request.setRequest(HttpServerConfig.getSensorTCPCommandGetAnalogicalJson() +
+						HttpServerConstant.SENSOR_TCP_REQUEST_END_OF_MESSAGE);
 			} 
 			request.setSensorType("Analogic");
 
@@ -99,33 +108,33 @@ public class HttpServerLogic {
 		}
 	}
 	
-	public static void parseActuatorResponse(HttpParser parser, ActuatorClientRequest request) {
+	public static void parseSensorTCPResponse(HttpParser parser, SensorTCPClientRequest request) {
 		if (HttpServerLogic.isLogicValue(parser.getRequestURL())) {
 			if (HttpServerLogic.isJsonRequest(parser)) {
-				request.setValue(ActuatorClientParser.getVaueFromJSNResponse(request.getResponse()));
+				request.setValue(SensorTCPClientParser.getVaueFromJSNResponse(request.getResponse()));
 				request.setFormat("JSON");
 				
 			} else if (HttpServerLogic.isXmlRequest(parser)) {
-				request.setValue(ActuatorClientParser.getVaueFromXMLResponse(request.getResponse()));
+				request.setValue(SensorTCPClientParser.getVaueFromXMLResponse(request.getResponse()));
 				request.setFormat("XML");
 				
 			} else {
-				request.setValue(ActuatorClientParser.getVaueFromXMLResponse(request.getResponse()));
-				request.setFormat("XML");
+				request.setValue(SensorTCPClientParser.getVaueFromJSNResponse(request.getResponse()));
+				request.setFormat("JSON");
 			}
 			
 		} else if (HttpServerLogic.isAnalogicValue(parser.getRequestURL())) {
 			if (HttpServerLogic.isJsonRequest(parser)) {
-				request.setValue(ActuatorClientParser.getVaueFromJSNResponse(request.getResponse()));
+				request.setValue(SensorTCPClientParser.getVaueFromJSNResponse(request.getResponse()));
 				request.setFormat("JSON");
 					
 			} else if (HttpServerLogic.isXmlRequest(parser)) {
-				request.setValue(ActuatorClientParser.getVaueFromXMLResponse(request.getResponse()));
+				request.setValue(SensorTCPClientParser.getVaueFromXMLResponse(request.getResponse()));
 				request.setFormat("XML");
 					
 			} else {
-				request.setValue(ActuatorClientParser.getVaueFromXMLResponse(request.getResponse()));
-				request.setFormat("XML");
+				request.setValue(SensorTCPClientParser.getVaueFromJSNResponse(request.getResponse()));
+				request.setFormat("JSON");
 			}
 			
 		} else {
@@ -134,5 +143,35 @@ public class HttpServerLogic {
 			System.out.println(request.getValue());
 			System.out.println(request.getFormat());
 		}
+	}
+
+	public static String handleSensorServerTCPConfiguration(HttpParser parser) {
+		
+		if ( isSensorTCPConfig(parser.getRequestURL()) ) {
+			
+			String host = parser.getParam("sensorTCPHost");
+			if (host != null && 
+					new InetAddressValidator().isValidInet4Address( host ) ) {
+				
+				HttpServerConfig.setSensorTCPHost(host);
+			} else {
+				return HtmlCreator.createErrorHtmlResponse("El Parametro 'sensorTCPHost' es nulo o no cumple con el formato de una IP valida ");
+			}
+			
+			String port = parser.getParam("sensorTCPPort");
+			if (port != null && 
+					NumberUtils.isDigits(port)) {
+				
+				HttpServerConfig.setSensorTCPPortNumber(port);
+			} else {
+				return HtmlCreator.createErrorHtmlResponse("El Parametro 'sensorTCPPort' es nulo o no cumple con el formato de un puerto ");
+			}
+			
+			// configuration ok
+			return HtmlCreator.createSensorConfigurationResponse(host,port);
+		}
+		
+		// not the configuration page
+		return HttpServerConstant.EMPTY_STRING;
 	}
 }

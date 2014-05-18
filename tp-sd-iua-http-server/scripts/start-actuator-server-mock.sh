@@ -1,36 +1,36 @@
 #!/bin/bash
 
 if [ "$1" == "-h" ]; then
-  echo "Use like this: ./start-actuator-server-mock.sh [ACTUATOR_PORT_NUMBER]"
+  echo "Use like this: ./start-actuator-server-mock.sh [SERVER_TCP_PORT_NUMBER]"
   exit 0
 fi
 
-ACTUATOR_PORT_NUMBER=8001
+SERVER_TCP_PORT_NUMBER=8001
 if [[ -n $1 ]]; then
-	ACTUATOR_PORT_NUMBER=$1    
+	SERVER_TCP_PORT_NUMBER=$1    
 fi
 
-NETWORK_CONFIG=" -DactuatorClientPortNumber=$ACTUATOR_PORT_NUMBER "
+NETWORK_CONFIG=" -DsensorTCPPortNumber=$SERVER_TCP_PORT_NUMBER "
 
 # Configuration Actuator Protocol
-actuatorClientLogicalJson=getLogicValueJSON
-actuatorClientLogicalXml=getLogicValueXML
-actuatorClientAnalogicalJson=getAnalogicValueJSON
-actuatorClientAnalogicalXml=getAnalogicValueXML
+sensorTCPCommandLogicalJson=getLogicValueJSON
+sensorTCPCommandLogicalXml=getLogicValueXML
+sensorTCPCommandAnalogicalJson=getAnalogicValueJSON
+sensorTCPCommandAnalogicalXml=getAnalogicValueXML
 
-PROTOCOL_CONFIG=" -DactuatorClientLogicalJson=$actuatorClientLogicalJson -DactuatorClientLogicalXml=$actuatorClientLogicalXml -DactuatorClientAnalogicalJson=$actuatorClientAnalogicalJson -DactuatorClientAnalogicalXml=$actuatorClientAnalogicalXml "
+PROTOCOL_CONFIG=" -DsensorTCPCommandLogicalJson=$sensorTCPCommandLogicalJson -DsensorTCPCommandLogicalXml=$sensorTCPCommandLogicalXml -DsensorTCPCommandAnalogicalJson=$sensorTCPCommandAnalogicalJson -DsensorTCPCommandAnalogicalXml=$sensorTCPCommandAnalogicalXml "
 
-echo Actuator Port Number used: $ACTUATOR_PORT_NUMBER
+echo Actuator Port Number used: $SERVER_TCP_PORT_NUMBER
 echo --------------------------------------------------------------
 
 echo Actuator Protocol Configuration: 
-echo 	$actuatorClientLogicalJson
-echo 	$actuatorClientLogicalXml
-echo 	$actuatorClientAnalogicalJson
-echo 	$actuatorClientAnalogicalXml
+echo 	$sensorTCPCommandLogicalJson
+echo 	$sensorTCPCommandLogicalXml
+echo 	$sensorTCPCommandAnalogicalJson
+echo 	$sensorTCPCommandAnalogicalXml
 echo --------------------------------------------------------------
 
 echo Starting Java App...
 echo .................
 
-java -cp ~/work/edu-iua-embebed-system-tp/tp-sd-iua-http-server/target/tp-sd-iua-http-server-1.0-SNAPSHOT-jar-with-dependencies.jar $NETWORK_CONFIG $PROTOCOL_CONFIG ar.edu.iua.practicoSD.actuatorServer.ActuatorServerMock
+java -cp ~/work/edu-iua-embebed-system-tp/tp-sd-iua-http-server/target/tp-sd-iua-http-server-1.0-SNAPSHOT-jar-with-dependencies.jar $NETWORK_CONFIG $PROTOCOL_CONFIG ar.edu.iua.practicoSD.sensorServerTCP.SensorTCPServerMock

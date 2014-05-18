@@ -3,7 +3,7 @@ package ar.edu.iua.practicoSD.httpServer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ActuatorClientParser {
+public class SensorTCPClientParser {
 
 	public static String getVaueFromXMLResponse(String response) {
 	

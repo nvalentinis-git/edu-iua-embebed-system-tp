@@ -1,4 +1,4 @@
-package ar.edu.iua.practicoSD.actuatorServer;
+package ar.edu.iua.practicoSD.sensorServerTCP;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -9,21 +9,21 @@ import java.net.Socket;
 
 import ar.edu.iua.practicoSD.util.HttpServerConfig;
 
-public class ActuatorServerMock {
+public class SensorTCPServerMock {
 	
 	private static ServerSocket serverSocket;
 	
 	public static void main(String[] args) {
 		
 		try {
-			 serverSocket = new ServerSocket(HttpServerConfig.getActuatorClientPortNumber());
-			 System.out.println("Actuator Server Mock Started at: " + HttpServerConfig.getActuatorClientPortNumber()+"\n");
+			 serverSocket = new ServerSocket(HttpServerConfig.getSensorTCPPortNumber());
+			 System.out.println("Sensor Server TCP Mock Started at: " + HttpServerConfig.getSensorTCPPortNumber()+"\n");
 			 
 			while(true) {			
 				Socket client = serverSocket.accept();
 				System.out.println("New Connection established");
 				
-				new Thread(new ActuatorServerMockSession(client)).start();				
+				new Thread(new SensorTCPServerMockSession(client)).start();				
 			}
 			
 		} catch (IOException e) {
@@ -34,19 +34,19 @@ public class ActuatorServerMock {
 	private static String getResponse(String request) {
 		String response = "error";
 		
-		if (HttpServerConfig.getActuatorRequestGetAnalogicalJson().equalsIgnoreCase(request) ) {
+		if (HttpServerConfig.getSensorTCPCommandGetAnalogicalJson().equalsIgnoreCase(request) ) {
 						
 			response = "{ \"type\":\"analogic\", \"meta\":\"sensor2\", \"value\":0.67 }\n";
 			
-		} else if (HttpServerConfig.getActuatorRequestGetAnalogicalXml().equalsIgnoreCase(request) ) {
+		} else if (HttpServerConfig.getSensorTCPCommandGetAnalogicalXml().equalsIgnoreCase(request) ) {
 						
 			response = "<response type=\"analogic\" meta=\"sensor2\">0.67</response>\n";
 
-		} else if (HttpServerConfig.getActuatorRequestGetLogicalJson().equalsIgnoreCase(request) ) {
+		} else if (HttpServerConfig.getSensorTCPCommandGetLogicalJson().equalsIgnoreCase(request) ) {
 			
 			response = "{ \"type\":\"logic\", \"meta\":\"sensor1\", \"value\":1 }\n";
-
-		} else if (HttpServerConfig.getActuatorRequestGetLogicalXml().equalsIgnoreCase(request) ) {
+									  
+		} else if (HttpServerConfig.getSensorTCPCommandGetLogicalXml().equalsIgnoreCase(request) ) {
 			
 			response = "<response type=\"logic\" meta=\"sensor1\">1</response>\n";
 		}
@@ -54,11 +54,11 @@ public class ActuatorServerMock {
 		return response;
 	}
 	
-	public static class ActuatorServerMockSession implements Runnable {
+	public static class SensorTCPServerMockSession implements Runnable {
 		
 		private Socket client;
 		
-		public ActuatorServerMockSession(Socket client) {
+		public SensorTCPServerMockSession(Socket client) {
 			this.client = client;
 		}
 		

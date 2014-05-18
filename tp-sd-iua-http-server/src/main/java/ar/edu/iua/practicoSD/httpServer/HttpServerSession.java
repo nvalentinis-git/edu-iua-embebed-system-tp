@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 
 import ar.edu.iua.practicoSD.util.ErrorHandler;
@@ -33,36 +34,49 @@ public class HttpServerSession implements Runnable {
 				
 			String httpResponse = ErrorHandler.handleError(parser);
 			
-			ActuatorClientRequest request = new ActuatorClientRequest();
-			
+			// handle the sensor server TCP configuration			
+			if(HttpServerConstant.EMPTY_STRING.equalsIgnoreCase(httpResponse)) {
+				httpResponse = HttpServerLogic.handleSensorServerTCPConfiguration(parser);
+			}
+				
+			SensorTCPClientRequest request = new SensorTCPClientRequest();			
 			// process the Ok request
 			if(HttpServerConstant.EMPTY_STRING.equalsIgnoreCase(httpResponse)) {
 				
 				try { 
 										
-					// create a communication with the Actuator
-					Socket actuatorClientSocket = new Socket(
-							HttpServerConfig.getActuatorClientHostNumber(),
-							HttpServerConfig.getActuatorClientPortNumber());
+					// create a communication with the Sensor TCP Server, time out 5 seg
+					Socket sensorTCPServerSocket = new Socket();
+					sensorTCPServerSocket.connect(
+							new InetSocketAddress(
+									HttpServerConfig.getSensorTCPHostNumber(), 
+									HttpServerConfig.getSensorTCPPortNumber()), 
+									5000);
 					
-					BufferedReader inputStreamActuator = new BufferedReader( new InputStreamReader( actuatorClientSocket.getInputStream() ) );
-					DataOutputStream outputStreamActuator = new DataOutputStream( actuatorClientSocket.getOutputStream() ); 
+					// for read tiem out
+					sensorTCPServerSocket.setSoTimeout(5000);
 					
-					//create the Actuator request 
-					HttpServerLogic.createActuatorRequest(parser, request);
+					BufferedReader inputStreamTCPServer = new BufferedReader( new InputStreamReader( sensorTCPServerSocket.getInputStream() ) );
+					DataOutputStream outputStreamTCPServer = new DataOutputStream( sensorTCPServerSocket.getOutputStream() ); 
 					
-					//request to the Actuator Server
+					//create the Sensor TCP request 
+					HttpServerLogic.createSensorTCPRequest(parser, request);
+					
+					//wait to complete the socket link with the Actuator
+					Thread.sleep(300);
+					
+					//request to the Sensor TCP Server
 					if (!"Request Error".equalsIgnoreCase(request.getRequest())) {
-						outputStreamActuator.writeBytes(request.getRequest());
-						outputStreamActuator.flush();
+						outputStreamTCPServer.writeBytes(request.getRequest());
+						outputStreamTCPServer.flush();
 					}
 					
-					//get the response from the Actuator Server
-					String actuatorResponse = inputStreamActuator.readLine();
+					//get the response from the Sensor TCP Server
+					String actuatorResponse = inputStreamTCPServer.readLine();
 					request.setResponse(actuatorResponse);
 					
 					//parse the response
-					HttpServerLogic.parseActuatorResponse(parser, request);
+					HttpServerLogic.parseSensorTCPResponse(parser, request);
 					
 					//add the automatic reload
 					String reloadTime = "";
@@ -80,7 +94,9 @@ public class HttpServerSession implements Runnable {
 								
 				} catch(Exception e) {
 					e.printStackTrace();		
-					httpResponse = HtmlCreator.createErrorHtmlResponse("Error al conectarse al Actuador");
+					httpResponse = HtmlCreator.createErrorHtmlResponse("Error de conexion con el Modulo de Sensores - Server TCP <br> " + 
+							"IP configurada del Modulo de Sensores: " + HttpServerConfig.getSensorTCPHostNumber() + "<br> " + 
+							"Pueto configurado del Modulo de Sensores: " + HttpServerConfig.getSensorTCPPortNumber() );
 				}				
 			}			
 			

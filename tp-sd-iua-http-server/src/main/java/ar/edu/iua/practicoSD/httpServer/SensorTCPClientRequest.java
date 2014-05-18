@@ -1,7 +1,7 @@
 package ar.edu.iua.practicoSD.httpServer;
 
 
-public class ActuatorClientRequest {
+public class SensorTCPClientRequest {
 
 	private String format;
 	private String request;
