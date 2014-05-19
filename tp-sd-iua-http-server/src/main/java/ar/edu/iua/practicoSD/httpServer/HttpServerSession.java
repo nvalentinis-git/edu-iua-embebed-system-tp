@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
@@ -57,7 +58,7 @@ public class HttpServerSession implements Runnable {
 					sensorTCPServerSocket.setSoTimeout(5000);
 					
 					BufferedReader inputStreamTCPServer = new BufferedReader( new InputStreamReader( sensorTCPServerSocket.getInputStream() ) );
-					DataOutputStream outputStreamTCPServer = new DataOutputStream( sensorTCPServerSocket.getOutputStream() ); 
+					PrintWriter outputStreamTCPServer = new PrintWriter( sensorTCPServerSocket.getOutputStream() ); 
 					
 					//create the Sensor TCP request 
 					HttpServerLogic.createSensorTCPRequest(parser, request);
@@ -67,7 +68,7 @@ public class HttpServerSession implements Runnable {
 					
 					//request to the Sensor TCP Server
 					if (!"Request Error".equalsIgnoreCase(request.getRequest())) {
-						outputStreamTCPServer.writeBytes(request.getRequest());
+						outputStreamTCPServer.println( request.getRequest() );
 						outputStreamTCPServer.flush();
 					}
 					

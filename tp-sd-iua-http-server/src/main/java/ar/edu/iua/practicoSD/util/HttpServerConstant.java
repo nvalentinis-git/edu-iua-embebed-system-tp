@@ -4,7 +4,7 @@ public class HttpServerConstant {
 
 	public static final String EMPTY_STRING = "";
 	
-	public static final String SENSOR_TCP_REQUEST_END_OF_MESSAGE = "\n";
+	public static final String SENSOR_TCP_REQUEST_END_OF_MESSAGE = "";
 	
 	public static final String SENSOR_TCP_REQUEST_GET_LOGICAL_VALUE_JSON = 
 			"getLogicValue?format=json";

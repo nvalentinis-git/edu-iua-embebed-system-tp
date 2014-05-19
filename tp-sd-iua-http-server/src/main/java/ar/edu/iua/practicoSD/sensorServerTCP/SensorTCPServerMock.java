@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Reader;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -85,6 +86,25 @@ public class SensorTCPServerMock {
 				e.printStackTrace();
 			}	
 			
+		}
+		
+		private String readCommandFromRequestInput( Reader input ) {
+			
+			String response = "error";
+			try {
+				int in = 0;
+				boolean needToRead = true;
+				while ( input.ready() && needToRead ) {
+					in = input.read();
+					response += Character.toString( (char) in );
+					needToRead = false;
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();				
+			}			
+			
+			return response;			
 		}
 	}
 		
