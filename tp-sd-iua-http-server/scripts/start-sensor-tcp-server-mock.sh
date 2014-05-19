@@ -14,7 +14,7 @@ NETWORK_CONFIG=" -DsensorTCPPortNumber=$SERVER_TCP_PORT_NUMBER "
 
 # Configuration Actuator Protocol
 sensorTCPCommandLogicalJson=getLogicValueJSON
-sensorTCPCommandLogicalXml=getLogicValueXML
+sensorTCPCommandLogicalXml=GetLogicValueXML
 sensorTCPCommandAnalogicalJson=getAnalogicValueJSON
 sensorTCPCommandAnalogicalXml=getAnalogicValueXML
 

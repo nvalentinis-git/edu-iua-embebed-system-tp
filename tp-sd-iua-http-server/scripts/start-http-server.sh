@@ -24,7 +24,7 @@ NETWORK_CONFIG=" -DhttpServerPortNumber=$SERVER_HOST_NUMBER -DsensorTCPHostNumbe
 
 # Configuration Actuator Protocol
 sensorTCPCommandLogicalJson=getLogicValueJSON
-sensorTCPCommandLogicalXml=getLogicValueXML
+sensorTCPCommandLogicalXml=GetLogicValueXML
 sensorTCPCommandAnalogicalJson=getAnalogicValueJSON
 sensorTCPCommandAnalogicalXml=getAnalogicValueXML
 

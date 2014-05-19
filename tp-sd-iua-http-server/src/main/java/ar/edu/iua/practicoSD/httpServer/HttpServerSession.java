@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.Reader;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
@@ -58,7 +59,7 @@ public class HttpServerSession implements Runnable {
 					sensorTCPServerSocket.setSoTimeout(5000);
 					
 					BufferedReader inputStreamTCPServer = new BufferedReader( new InputStreamReader( sensorTCPServerSocket.getInputStream() ) );
-					PrintWriter outputStreamTCPServer = new PrintWriter( sensorTCPServerSocket.getOutputStream() ); 
+					PrintWriter outputStreamTCPServer = new PrintWriter( sensorTCPServerSocket.getOutputStream(), true ); 
 					
 					//create the Sensor TCP request 
 					HttpServerLogic.createSensorTCPRequest(parser, request);
@@ -69,16 +70,16 @@ public class HttpServerSession implements Runnable {
 					//request to the Sensor TCP Server
 					if (!"Request Error".equalsIgnoreCase(request.getRequest())) {
 						outputStreamTCPServer.println( request.getRequest() );
-						outputStreamTCPServer.flush();
 					}
 					
 					//get the response from the Sensor TCP Server
-					String actuatorResponse = inputStreamTCPServer.readLine();
+					//String actuatorResponse = inputStreamTCPServer.readLine();
+					String actuatorResponse = readResponseFromInput( inputStreamTCPServer );
 					request.setResponse(actuatorResponse);
 					
 					//parse the response
 					HttpServerLogic.parseSensorTCPResponse(parser, request);
-					
+												
 					//add the automatic reload
 					String reloadTime = "";
 					if (parser.getParam("reload") != null && 
@@ -86,12 +87,22 @@ public class HttpServerSession implements Runnable {
 						reloadTime = parser.getParam("reload");
 					}
 					
-					httpResponse = HtmlCreator.createHtmlResponse(
-							request.getFormat(),
-							request.getResponse(),
-							request.getSensorType(), 
-							request.getValue(),
-							reloadTime);
+					// check for error on the response
+					if ( request.getResponse().contains("error") || 
+						 request.getValue() == null || 
+						 HttpServerConstant.EMPTY_STRING.equalsIgnoreCase(request.getValue() ) ) {
+						
+						httpResponse = HtmlCreator.createErrorHtmlResponse("Error en la Respuesta del Modulo de Sensores - Server TCP <br> " + 
+								"Respuesta del Modulo de Sensores: " + request.getResponse() + "<br> " );
+					} else {
+						
+						httpResponse = HtmlCreator.createHtmlResponse(
+								request.getFormat(),
+								request.getResponse(),
+								request.getSensorType(), 
+								request.getValue(),
+								reloadTime);						
+					}					
 								
 				} catch(Exception e) {
 					e.printStackTrace();		
@@ -124,4 +135,69 @@ public class HttpServerSession implements Runnable {
 			e.printStackTrace();
 		}
 	}
+	
+	private String readResponseFromInput( Reader input ) {
+		
+		String response = "error";
+		String sensorResponse = "";
+		try {
+			int in = 0;
+			boolean needToRead = true;
+			
+			while ( !input.ready() ) { 
+				Thread.sleep(200);
+			}
+			
+			while ( input.ready() && needToRead ) {
+				in = input.read();
+				sensorResponse += Character.toString( (char) in );
+//				System.out.print(command);
+//				System.out.print("\n");
+				if (isValidResponse(sensorResponse)) {
+					needToRead = false;
+					response = sensorResponse;
+				}						
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();				
+		}			
+		
+		return response;			
+	}
+	
+	private boolean isValidResponse(String sensorResponse) {
+			
+		boolean valid = false;
+		
+		// xml response
+		if ( sensorResponse.contains("</response>")) {
+			valid = true;	
+		}
+		
+		// json response
+		if ( sensorResponse.contains("}")) {
+			valid = true;	
+		}
+			
+		return valid;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

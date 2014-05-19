@@ -34,13 +34,7 @@ public class HttpServer {
 				e.printStackTrace();
 			}	
 		}
-	}
-	
-	
-	
-	
-	
-	
+	}	
 }
 
 

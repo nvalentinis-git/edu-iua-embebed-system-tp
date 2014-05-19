@@ -123,6 +123,9 @@ public class HttpServerLogic {
 				request.setFormat("JSON");
 			}
 			
+			String value = request.getValue();
+			request.setValue(value + getLogicString( value  ) );
+			
 		} else if (HttpServerLogic.isAnalogicValue(parser.getRequestURL())) {
 			if (HttpServerLogic.isJsonRequest(parser)) {
 				request.setValue(SensorTCPClientParser.getVaueFromJSNResponse(request.getResponse()));
@@ -174,4 +177,37 @@ public class HttpServerLogic {
 		// not the configuration page
 		return HttpServerConstant.EMPTY_STRING;
 	}
+	
+	private static String getLogicString(String value) {
+		
+		String logicStr = "";
+		
+		if ( "1".equalsIgnoreCase(value)) {
+			
+			logicStr = " (ON) "; 
+			
+		} else if ( "0".equalsIgnoreCase(value)) {
+			
+			logicStr = " (OFF) ";
+		}
+		
+		return logicStr;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
