@@ -50,12 +50,12 @@ public class HtmlCreator {
 			"  <td>" + format + "</td>" +		
 			"</tr>" + 
 			"<tr>" + 
-			"  <td style=\"width:320px; font-weight:bold;\">Respuesta del Actuador</td>" +
+			"  <td style=\"width:320px; font-weight:bold;\">Rta. Modulo Sensores</td>" +
 			"  <td>" + StringEscapeUtils.escapeHtml4(response) + "</td>" +		
 			"</tr>" +
 			"</table>");
 		
-		htmlBuilder.append("<p><h1  style=\"color: blue;\"> Estado del Actuador </h1></p>");
+		htmlBuilder.append("<p><h1  style=\"color: blue;\"> Estado de la Pagina </h1></p>");
 		
 		String dateFormated = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z").format(new Date());
 		htmlBuilder.append("<table style=\"width:80%; font-size: 20;\"> ");
