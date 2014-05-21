@@ -89,10 +89,7 @@ public class HttpServerTest {
 			page += in;
 		}
 		
-		System.out.println(page);
-		
-		return page;
-		
+		return page;		
 	}
 	
 }

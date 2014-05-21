@@ -6,7 +6,7 @@ public class ErrorHandler {
 
 	public static String handleError(HttpParser parser) {
 		
-		String httpResponse = HttpServerConstant.EMPTY_STRING;
+		String httpResponse = HttpServerConfig.EMPTY_STRING;
 		HtmlCreator.createErrorHtmlResponse("Algo inesperado sucedio intentelo de nuevo");
 		
 		if (!parser.getMethod().equalsIgnoreCase("GET")) {			

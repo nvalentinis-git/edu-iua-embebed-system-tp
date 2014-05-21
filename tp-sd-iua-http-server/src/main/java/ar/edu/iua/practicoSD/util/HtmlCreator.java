@@ -27,7 +27,7 @@ public class HtmlCreator {
 		htmlBuilder.append("<head><title>TP Final SD.</title></head>");
 		htmlBuilder.append("<body>");
 		
-		if (!HttpServerConstant.EMPTY_STRING.equals(realoadTime)) {
+		if (!HttpServerConfig.EMPTY_STRING.equals(realoadTime)) {
 			htmlBuilder.append("<script type=\"text/javascript\">");						
 			htmlBuilder.append("window.setInterval(function() {location.reload(true)},"+ Integer.parseInt(realoadTime)*1000  +");");
 			htmlBuilder.append("</script>");
@@ -65,7 +65,7 @@ public class HtmlCreator {
 				"  <td>" + dateFormated + "</td> " +		 
 				"</tr>");	
 		
-		if (!HttpServerConstant.EMPTY_STRING.equals(realoadTime)) {
+		if (!HttpServerConfig.EMPTY_STRING.equals(realoadTime)) {
 			htmlBuilder.append("<tr>" +
 					"  <td style=\"width:320px; font-weight:bold;\">Recarga Automatica cada: </td>" +
 					"  <td>" + realoadTime + " seg. </td>" +		

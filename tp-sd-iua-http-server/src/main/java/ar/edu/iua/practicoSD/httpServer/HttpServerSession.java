@@ -13,7 +13,6 @@ import ar.edu.iua.practicoSD.util.ErrorHandler;
 import ar.edu.iua.practicoSD.util.HtmlCreator;
 import ar.edu.iua.practicoSD.util.HttpParser;
 import ar.edu.iua.practicoSD.util.HttpServerConfig;
-import ar.edu.iua.practicoSD.util.HttpServerConstant;
 
 public class HttpServerSession implements Runnable {
 
@@ -37,13 +36,13 @@ public class HttpServerSession implements Runnable {
 			String httpResponse = ErrorHandler.handleError(parser);
 			
 			// handle the sensor server TCP configuration			
-			if(HttpServerConstant.EMPTY_STRING.equalsIgnoreCase(httpResponse)) {
+			if(HttpServerConfig.EMPTY_STRING.equalsIgnoreCase(httpResponse)) {
 				httpResponse = HttpServerLogic.handleSensorServerTCPConfiguration(parser);
 			}
 				
 			SensorTCPClientRequest request = new SensorTCPClientRequest();			
 			// process the Ok request
-			if(HttpServerConstant.EMPTY_STRING.equalsIgnoreCase(httpResponse)) {
+			if(HttpServerConfig.EMPTY_STRING.equalsIgnoreCase(httpResponse)) {
 				
 				try { 
 										
@@ -83,14 +82,14 @@ public class HttpServerSession implements Runnable {
 					//add the automatic reload
 					String reloadTime = "";
 					if (parser.getParam("reload") != null && 
-							!HttpServerConstant.EMPTY_STRING.equalsIgnoreCase(parser.getParam("reload"))) {
+							!HttpServerConfig.EMPTY_STRING.equalsIgnoreCase(parser.getParam("reload"))) {
 						reloadTime = parser.getParam("reload");
 					}
 					
 					// check for error on the response
 					if ( request.getResponse().contains("error") || 
 						 request.getValue() == null || 
-						 HttpServerConstant.EMPTY_STRING.equalsIgnoreCase(request.getValue() ) ) {
+						 HttpServerConfig.EMPTY_STRING.equalsIgnoreCase(request.getValue() ) ) {
 						
 						httpResponse = HtmlCreator.createErrorHtmlResponse("Error en la Respuesta del Modulo de Sensores - Server TCP <br> " + 
 								"Respuesta del Modulo de Sensores: " + request.getResponse() + "<br> " );

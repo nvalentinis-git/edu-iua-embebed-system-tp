@@ -3,11 +3,9 @@ package ar.edu.iua.practicoSD.httpServer;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.commons.validator.routines.InetAddressValidator;
 
-
 import ar.edu.iua.practicoSD.util.HtmlCreator;
 import ar.edu.iua.practicoSD.util.HttpParser;
 import ar.edu.iua.practicoSD.util.HttpServerConfig;
-import ar.edu.iua.practicoSD.util.HttpServerConstant;
 
 public class HttpServerLogic {
 
@@ -72,15 +70,15 @@ public class HttpServerLogic {
 			request.setRequest("Request Error");
 			if(HttpServerLogic.isJsonRequest(parser)) {
 				request.setRequest(HttpServerConfig.getSensorTCPCommandGetLogicalJson() + 
-						HttpServerConstant.SENSOR_TCP_REQUEST_END_OF_MESSAGE);
+						HttpServerConfig.SENSOR_TCP_REQUEST_END_OF_MESSAGE);
 			
 			} else if(HttpServerLogic.isXmlRequest(parser)) {
 				request.setRequest(HttpServerConfig.getSensorTCPCommandGetLogicalXml() + 
-						HttpServerConstant.SENSOR_TCP_REQUEST_END_OF_MESSAGE); 
+						HttpServerConfig.SENSOR_TCP_REQUEST_END_OF_MESSAGE); 
 			
 			} else {			
 				request.setRequest(HttpServerConfig.getSensorTCPCommandGetLogicalJson() +
-						 HttpServerConstant.SENSOR_TCP_REQUEST_END_OF_MESSAGE);
+						HttpServerConfig.SENSOR_TCP_REQUEST_END_OF_MESSAGE);
 			} 
 			request.setSensorType("Logic");
 
@@ -88,15 +86,15 @@ public class HttpServerLogic {
 			request.setRequest("Request Error");
 			if(HttpServerLogic.isJsonRequest(parser)) {
 				request.setRequest(HttpServerConfig.getSensorTCPCommandGetAnalogicalJson() + 
-						HttpServerConstant.SENSOR_TCP_REQUEST_END_OF_MESSAGE);
+						HttpServerConfig.SENSOR_TCP_REQUEST_END_OF_MESSAGE);
 				
 			} else if (HttpServerLogic.isXmlRequest(parser)) {
 				request.setRequest(HttpServerConfig.getSensorTCPCommandGetAnalogicalXml() +
-						HttpServerConstant.SENSOR_TCP_REQUEST_END_OF_MESSAGE);
+						HttpServerConfig.SENSOR_TCP_REQUEST_END_OF_MESSAGE);
 				
 			} else {
 				request.setRequest(HttpServerConfig.getSensorTCPCommandGetAnalogicalJson() +
-						HttpServerConstant.SENSOR_TCP_REQUEST_END_OF_MESSAGE);
+						HttpServerConfig.SENSOR_TCP_REQUEST_END_OF_MESSAGE);
 			} 
 			request.setSensorType("Analogic");
 
@@ -175,7 +173,7 @@ public class HttpServerLogic {
 		}
 		
 		// not the configuration page
-		return HttpServerConstant.EMPTY_STRING;
+		return HttpServerConfig.EMPTY_STRING;
 	}
 	
 	private static String getLogicString(String value) {

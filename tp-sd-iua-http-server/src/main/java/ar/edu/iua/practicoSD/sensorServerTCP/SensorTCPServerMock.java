@@ -9,7 +9,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import ar.edu.iua.practicoSD.util.HttpServerConfig;
-import ar.edu.iua.practicoSD.util.HttpServerConstant;
 
 public class SensorTCPServerMock {
 	
@@ -39,22 +38,22 @@ public class SensorTCPServerMock {
 		if (HttpServerConfig.getSensorTCPCommandGetAnalogicalJson().equalsIgnoreCase(request) ) {
 						
 			response = "{ \"type\":\"analogic\", \"meta\":\"sensor2\", \"value\":0.67 }" +
-					HttpServerConstant.SENSOR_TCP_REQUEST_END_OF_MESSAGE;
+					HttpServerConfig.SENSOR_TCP_REQUEST_END_OF_MESSAGE;
 			
 		} else if (HttpServerConfig.getSensorTCPCommandGetAnalogicalXml().equalsIgnoreCase(request) ) {
 						
 			response = "<response type=\"analogic\" meta=\"sensor2\">0.67</response>" +
-					HttpServerConstant.SENSOR_TCP_REQUEST_END_OF_MESSAGE;
+					HttpServerConfig.SENSOR_TCP_REQUEST_END_OF_MESSAGE;
 
 		} else if (HttpServerConfig.getSensorTCPCommandGetLogicalJson().equalsIgnoreCase(request) ) {
 			
 			response = "{ \"type\":\"logic\", \"meta\":\"sensor1\", \"value\":0 }" +
-					HttpServerConstant.SENSOR_TCP_REQUEST_END_OF_MESSAGE;;
+					HttpServerConfig.SENSOR_TCP_REQUEST_END_OF_MESSAGE;;
 									  
 		} else if (HttpServerConfig.getSensorTCPCommandGetLogicalXml().equalsIgnoreCase(request) ) {
 			
 			response = "<response type=\"logic\" meta=\"sensor1\">1</response>" +
-					HttpServerConstant.SENSOR_TCP_REQUEST_END_OF_MESSAGE;
+					HttpServerConfig.SENSOR_TCP_REQUEST_END_OF_MESSAGE;
 		}
 		
 		return response;
