@@ -54,7 +54,7 @@ public class HttpServerSession implements Runnable {
 									HttpServerConfig.getSensorTCPPortNumber()), 
 									5000);
 					
-					// for read tiem out
+					// for read time out
 					sensorTCPServerSocket.setSoTimeout(5000);
 					
 					BufferedReader inputStreamTCPServer = new BufferedReader( new InputStreamReader( sensorTCPServerSocket.getInputStream() ) );
@@ -91,6 +91,7 @@ public class HttpServerSession implements Runnable {
 						 request.getValue() == null || 
 						 HttpServerConfig.EMPTY_STRING.equalsIgnoreCase(request.getValue() ) ) {
 						
+						System.out.println("Response from TCP Server: " + request.getResponse());
 						httpResponse = HtmlCreator.createErrorHtmlResponse("Error en la Respuesta del Modulo de Sensores - Server TCP <br> " + 
 								"Respuesta del Modulo de Sensores: " + request.getResponse() + "<br> " );
 					} else {
@@ -104,7 +105,7 @@ public class HttpServerSession implements Runnable {
 					}					
 								
 				} catch(Exception e) {
-					e.printStackTrace();		
+					System.out.println(e.getStackTrace().toString());
 					httpResponse = HtmlCreator.createErrorHtmlResponse("Error de conexion con el Modulo de Sensores - Server TCP <br> " + 
 							"IP configurada del Modulo de Sensores: " + HttpServerConfig.getSensorTCPHostNumber() + "<br> " + 
 							"Pueto configurado del Modulo de Sensores: " + HttpServerConfig.getSensorTCPPortNumber() );
@@ -116,10 +117,10 @@ public class HttpServerSession implements Runnable {
 			outputStream.flush();
 			
 			// log the activity		
-			System.out.println("Method:                     " + parser.getMethod());
-			System.out.println("URL:                        " + parser.getRequestURL());
-			System.out.println("Actuator request sent:      " + request.getRequest());
-			System.out.println("Actuator response received: " + request.getResponse());
+			System.out.println("Method:                      " + parser.getMethod());
+			System.out.println("URL:                         " + parser.getRequestURL());
+			System.out.println("ServerTCP request sent:      " + request.getRequest());
+			System.out.println("ServerTCP response received: " + request.getResponse());
 			System.out.println("--------------------------------------------\n");
 			
 			if(Boolean.parseBoolean(System.getProperty("debugMode", "false"))) {

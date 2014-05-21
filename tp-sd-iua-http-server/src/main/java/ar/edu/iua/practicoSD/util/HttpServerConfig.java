@@ -16,7 +16,7 @@ public class HttpServerConfig {
 
 	
 /** Sensor server  
-    192.168.1.10[0-20]	
+    192.168.1.10 [0-20]	
  	Port 80 */
 	public static final String SENSOR_TCP_PORT_NUMBER = "8001";	
 		

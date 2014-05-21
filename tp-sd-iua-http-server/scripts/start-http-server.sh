@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$1" == "-h" ]; then
-  echo "Use like this: ./start-http-server.sh [SERVER_HOST_NUMBER] [SERVER_TCP_HOST_NUMBER] [SERVER_TCP_PORT_NUMBER] [USE_RELATIVE_PATH (Y/N)]"
+  echo "Use like this: ./start-http-server.sh [SERVER_HOST_NUMBER] [SERVER_TCP_HOST_NUMBER] [SERVER_TCP_PORT_NUMBER] [USE_RELATIVE_PATH]"
   exit 0
 fi
 
