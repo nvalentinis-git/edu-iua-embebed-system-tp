@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$1" == "-h" ]; then
-  echo "Use like this: ./start-http-server.sh [SERVER_HOST_NUMBER] [SERVER_TCP_HOST_NUMBER] [SERVER_TCP_PORT_NUMBER]"
+  echo "Use like this: ./start-http-server.sh [SERVER_HOST_NUMBER] [SERVER_TCP_HOST_NUMBER] [SERVER_TCP_PORT_NUMBER] [USE_RELATIVE_PATH (Y/N)]"
   exit 0
 fi
 
@@ -21,6 +21,12 @@ if [[ -n $3 ]]; then
 fi
 
 NETWORK_CONFIG=" -DhttpServerPortNumber=$SERVER_HOST_NUMBER -DsensorTCPHostNumber=$SERVER_TCP_HOST_NUMBER -DsensorTCPPortNumber=$SERVER_TCP_PORT_NUMBER "
+
+JAR_PATH="/home/pi/http-server/lib/tp-sd-iua-http-server-1.0-SNAPSHOT-jar-with-dependencies.jar"
+if [[ -n $4 ]]; then
+	JAR_PATH="../target/tp-sd-iua-http-server-1.0-SNAPSHOT-jar-with-dependencies.jar"
+fi
+
 
 # Configuration Actuator Protocol
 sensorTCPCommandLogicalJson=getLogicValueJSON
@@ -46,7 +52,7 @@ echo --------------------------------------------------------------
 echo Starting Java App...
 echo .................
 
-java -cp /home/pi/http-server/lib/tp-sd-iua-http-server-1.0-SNAPSHOT-jar-with-dependencies.jar $NETWORK_CONFIG $PROTOCOL_CONFIG ar.edu.iua.practicoSD.httpServer.HttpServer
+java -cp $JAR_PATH $NETWORK_CONFIG $PROTOCOL_CONFIG ar.edu.iua.practicoSD.httpServer.HttpServer
 
 
 
