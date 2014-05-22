@@ -21,7 +21,7 @@ echo ----------------------------------
 echo Starting Running unit test...
 echo ----------------------------------
 
-cd .. git
+cd .. 
 mvn test
 
 echo
