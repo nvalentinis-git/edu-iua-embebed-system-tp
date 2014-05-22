@@ -4,36 +4,36 @@ public class HttpServerConfig {
 
 	public static final String EMPTY_STRING = "";
 	
-/** Http Server
- 	Http Server   192.168.1.50 [0-20]
-	Port 8000 */
+/** Http Server Config
+ *		192.168.1.50 [0-20]
+ *		Port 8000 
+*/
 	public static final String SERVER_PORT_NUMBER = "8000";
 
 	public static int getHttpServerPortNumber() {
 		return Integer.parseInt(System.getProperty("httpServerPortNumber", SERVER_PORT_NUMBER));
 	}
-/** Endl Http Server Config */	
+/** Endl Http Server */	
 
 	
-/** Sensor server  
-    192.168.1.10 [0-20]	
- 	Port 80 */
+/** Sensor server Config 
+ *   192.168.1.10 [0-20]	
+ *	 Port 80 
+ */
 	public static final String SENSOR_TCP_PORT_NUMBER = "8001";	
 		
 	public static final String SENSOR_TCP_HOST_NUMBER = "localhost";
 			
 	public static void setSensorTCPPortNumber(String port) {
 		System.setProperty("sensorTCPPortNumber", port);
-	}
-	
+	}	
 	public static int getSensorTCPPortNumber() {		
-		return Integer.parseInt(System.getProperty("sensorTCPPortNumber",SENSOR_TCP_PORT_NUMBER));	
+		return Integer.parseInt(System.getProperty("sensorTCPPortNumber", SENSOR_TCP_PORT_NUMBER));	
 	}
 	
 	public static void setSensorTCPHost(String host) {
 		System.setProperty("sensorTCPHostNumber", host);
-	}
-	
+	}	
 	public static String getSensorTCPHostNumber() {
 		return System.getProperty("sensorTCPHostNumber", SENSOR_TCP_HOST_NUMBER);
 	}

@@ -70,10 +70,31 @@ public class HtmlCreator {
 					"  <td style=\"width:320px; font-weight:bold;\">Recarga Automatica cada: </td>" +
 					"  <td>" + realoadTime + " seg. </td>" +		
 					"</tr>");
-		}
-		
+		}		
 		htmlBuilder.append("</table>");
 	
+		htmlBuilder.append("<h1  style=\"color: blue;\"> Estado de la Conexion </h1>");
+		String link = "<a style=\"font-size: 15px; color: black;\" "
+				+ "href=\"/sensorConfig?"
+				+ "sensorTCPHost=" + HttpServerConfig.getSensorTCPHostNumber() 
+				+ "&sensorTCPPort="+HttpServerConfig.getSensorTCPPortNumber()+"\"> " 
+				+ "  link </a>";
+		
+		htmlBuilder.append("<table style=\"width:80%; font-size: 20;\"> "+
+				"<tr>"+
+				"  <td style=\"width:320px; font-weight:bold;\">IP del Modulo de Sensores</td> " +
+				"  <td>" + HttpServerConfig.getSensorTCPHostNumber() + "</td>" +		
+				"</tr>" +
+				"<tr>" +
+				"  <td style=\"width:320px; font-weight:bold;\">Puerto del Modulo de Sensores</td>" +
+				"  <td>" + HttpServerConfig.getSensorTCPPortNumber() + "</td>" +		
+				"</tr>" +
+				"<tr>" +
+				"  <td style=\"width:320px; font-weight:bold;\">Cambiar Configuracion</td>" +
+				"  <td>" + link + "</td>" +		
+				"</tr>" +
+				"</table>");		
+			
 		htmlBuilder.append("</body>");
 		htmlBuilder.append("</html>");
 		

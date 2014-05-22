@@ -52,10 +52,10 @@ public class HttpServerSession implements Runnable {
 							new InetSocketAddress(
 									HttpServerConfig.getSensorTCPHostNumber(), 
 									HttpServerConfig.getSensorTCPPortNumber()), 
-									5000);
+									10000);
 					
 					// for read time out
-					sensorTCPServerSocket.setSoTimeout(5000);
+					sensorTCPServerSocket.setSoTimeout(8000);
 					
 					BufferedReader inputStreamTCPServer = new BufferedReader( new InputStreamReader( sensorTCPServerSocket.getInputStream() ) );
 					PrintWriter outputStreamTCPServer = new PrintWriter( sensorTCPServerSocket.getOutputStream(), true ); 
@@ -105,7 +105,7 @@ public class HttpServerSession implements Runnable {
 					}					
 								
 				} catch(Exception e) {
-					System.out.println(e.getStackTrace().toString());
+					e.printStackTrace(System.out);
 					httpResponse = HtmlCreator.createErrorHtmlResponse("Error de conexion con el Modulo de Sensores - Server TCP <br> " + 
 							"IP configurada del Modulo de Sensores: " + HttpServerConfig.getSensorTCPHostNumber() + "<br> " + 
 							"Pueto configurado del Modulo de Sensores: " + HttpServerConfig.getSensorTCPPortNumber() );
