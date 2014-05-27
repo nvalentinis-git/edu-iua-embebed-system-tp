@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ "$1" == "-h" ]; then
+  echo "Use like this: ./run-unit-test.sh [SOMETHING_IF_WIN]"
+  exit 0
+fi
+
 echo
 echo ----------------------------------
 echo Starting Http Server...
@@ -29,5 +34,6 @@ echo ----------------------------------
 echo Stopping Http and Sensor Server...
 echo ----------------------------------
 
-/bin/bash stop-http-server.sh
+cd scripts
+/bin/bash stop-all-servers.sh $1
 

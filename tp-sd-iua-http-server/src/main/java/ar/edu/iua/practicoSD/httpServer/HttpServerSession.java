@@ -63,8 +63,8 @@ public class HttpServerSession implements Runnable {
 					//create the Sensor TCP request 
 					HttpServerLogic.createSensorTCPRequest(parser, request);
 					
-					//wait to complete the socket link with the Actuator
-					Thread.sleep(300);
+					//wait to complete the socket link with the Sensor ServerTCP
+					Thread.sleep(500);
 					
 					//request to the Sensor TCP Server
 					if (!"Request Error".equalsIgnoreCase(request.getRequest())) {
@@ -72,9 +72,9 @@ public class HttpServerSession implements Runnable {
 					}
 					
 					//get the response from the Sensor TCP Server
-					//String actuatorResponse = inputStreamTCPServer.readLine();
-					String actuatorResponse = readResponseFromInput( inputStreamTCPServer );
-					request.setResponse(actuatorResponse);
+					//String sensorTCPServerResponse = inputStreamTCPServer.readLine();
+					String sensorTCPServerResponse = readResponseFromInput( inputStreamTCPServer );
+					request.setResponse(sensorTCPServerResponse);
 					
 					//parse the response
 					HttpServerLogic.parseSensorTCPResponse(parser, request);
