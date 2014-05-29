@@ -2,6 +2,7 @@ package ar.edu.iua.practicoSD.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -9,10 +10,12 @@ public class HtmlCreator {
 	public static String createHttpResponseHeader() {
 		StringBuilder htmlBuilder = new StringBuilder();
 		htmlBuilder.append("HTTP/1.1 200 OK\n");
-		String dateFormated = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z").format(new Date());
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss z");
+		simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));		
+		String dateFormated = simpleDateFormat.format(new Date());
 		htmlBuilder.append("Date: " + dateFormated + "\n");
-		htmlBuilder.append("Content-Type: text/html\n");
-		htmlBuilder.append("Content-Length: 9999" + "\n");
+		htmlBuilder.append("Content-Type: text/html; charset=UTF-8\n");
+		htmlBuilder.append("Content-Length: 999\n");
 		htmlBuilder.append("\n");
 		htmlBuilder.append("\n");
 		return htmlBuilder.toString();
