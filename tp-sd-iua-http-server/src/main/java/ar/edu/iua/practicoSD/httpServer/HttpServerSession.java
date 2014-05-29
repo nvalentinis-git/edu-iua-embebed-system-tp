@@ -75,7 +75,13 @@ public class HttpServerSession implements Runnable {
 					//String sensorTCPServerResponse = inputStreamTCPServer.readLine();
 					String sensorTCPServerResponse = readResponseFromInput( inputStreamTCPServer );
 					request.setResponse(sensorTCPServerResponse);
-					
+						
+					//wait to complete the read and the close connection with TCP Server
+					Thread.sleep(100);
+					outputStreamTCPServer.close();
+					inputStreamTCPServer.close();
+					sensorTCPServerSocket.close();
+										
 					//parse the response
 					HttpServerLogic.parseSensorTCPResponse(parser, request);
 												
