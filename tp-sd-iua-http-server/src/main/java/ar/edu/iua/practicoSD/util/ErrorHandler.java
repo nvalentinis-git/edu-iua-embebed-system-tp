@@ -17,8 +17,8 @@ public class ErrorHandler {
 					"recursos soportados 'getAnalogicValue' y 'getLogicValue' ");
 		
 		} else if (!HttpServerLogic.isParameterWellFormed(parser)) {
-			httpResponse = HtmlCreator.createErrorHtmlResponse("Parametro o Valor invalido! Estos parametros: " + parser.getParams().toString() + 
-					" no son soportados. Parametros posibles 'format=xml' , 'format=json' , 'reload=[number]' ");
+			httpResponse = HtmlCreator.createErrorHtmlResponse("Parametro o Valor invalido! <br/> Estos parametros: " + parser.getParams().toString() + 
+					" no son soportados. <br/> Parametros posibles 'format=xml' , 'format=json' , 'reload=[number]' ");
 		}
 		
 		return httpResponse;

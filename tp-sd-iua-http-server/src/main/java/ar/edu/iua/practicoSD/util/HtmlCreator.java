@@ -15,7 +15,7 @@ public class HtmlCreator {
 		String dateFormated = simpleDateFormat.format(new Date());
 		htmlBuilder.append("Date: " + dateFormated + "\n");
 		htmlBuilder.append("Content-Type: text/html; charset=UTF-8\n");
-		htmlBuilder.append("Content-Length: 999\n");
+		//htmlBuilder.append("Content-Length: 5555\n");
 		htmlBuilder.append("\n");
 		htmlBuilder.append("\n");
 		return htmlBuilder.toString();
